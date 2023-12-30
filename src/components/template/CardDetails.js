@@ -7,12 +7,13 @@ import ShowDetails from "@/models/ShowDetails";
 import Link from "next/link";
 
 function CardDetails({ data }) {
-     const { id, title, brief,cover,inventory,sale_price,sku, old_price, value_discount,sale_type,} = data || "";
-    
+     const { id, title, brief,cover,inventory,sale_price,sku, old_price, value_discount,sale_type,attributes} = data || "";
+   
 
    // console.log(data)
+    //console.log(attributes)
 
-
+    
 
     const [count, setCount] = useState(1);
     const handleIncrement = () => {
@@ -67,6 +68,7 @@ function CardDetails({ data }) {
                         <div className="flex border rounded-lg  p-1">
                             {/*<Counter/> */}
                         </div>
+                        
 
                         <button className=' h-fit mt-10 w-auto p-3 rounded-full text-white bg-yellow hover:text-yellow hover:bg-white hover:border-yellow border transition-all delay-75 hover:animate__animated animate__zoomOut'>افزودن ب سبد خرید</button>
 

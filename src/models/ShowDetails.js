@@ -1,10 +1,12 @@
 "use client"
 import React, { useState } from "react"
 
-function ShowDetails({Data}) {
-    const { id, title, brief,cover,inventory,sale_price,sku, old_price, value_discount,sale_type,} = Data || "";
+function ShowDetails({ Data }) {
+    const { id, title, brief, cover, inventory, sale_price, sku, old_price, value_discount, sale_type, attributes } = Data || "";
 
-   
+   // console.log(Data)
+   // console.log(attributes)
+
     const [monthlyButtonStyle, setMonthlyButtonStyle] = useState('text-white  text-lg bg-yellow p-3 rounded-xl w-40');
     const [yearlyButtonStyle, setYearlyButtonStyle] = useState('text-gray-900 :mr-10 w-40 text-lg  ');
     const [showDetails, setShowDetails] = useState(false);
@@ -32,17 +34,20 @@ function ShowDetails({Data}) {
             <div>
                 {showDetails ? (
                     <div className="flex justify-start animate__animated animate__fadeInUp ">
-                        <div className="pt-8">
-                            <h4 className="text-gray-900 text-lg ">نام - <span className="text-gray-500 ">{title} </span></h4>
-                            <h4 className="text-gray-900 text-lg py-5">قیمت - <span className="text-gray-500">{sale_price}  </span></h4>
-                            <h4 className="text-gray-900 text-lg">وزن - <span className="text-gray-500">1 کیلو گرم</span></h4>
-                        </div>
-                        <div className="pt-8 mr-40">
-                            <h4 className="text-gray-900 text-lg ">امتیاز - <span className="text-gray-500 ">4.2  </span></h4>
-                            <h4 className="text-gray-900 text-lg py-5">ارسال - <span className="text-gray-500">رایگان  </span></h4>
-                            <h4 className="text-gray-900 text-lg">تحویل - <span className="text-gray-500">5 روز کاری </span></h4>
-                        </div>
-
+                        {attributes.length > 0 ? (
+                            <div className="pt-8">
+                                <ul>
+                                    {attributes.map((attribute, index) => (
+                                        <li key={index}>
+                                            <h4 className="text-gray-900 text-lg">
+                                                {`${attribute.key} - `}
+                                                <span className="text-gray-500">{attribute.value}</span>
+                                            </h4>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ) : null}
                     </div>) : (
                     <p className="text-gray-500 pt-5 text-center  md:text-start animate__animated animate__fadeInUp">
                         {brief}
@@ -57,3 +62,23 @@ function ShowDetails({Data}) {
 }
 
 export default ShowDetails
+
+
+
+
+
+
+
+
+{/*
+  <div className="pt-8">
+                            <h4 className="text-gray-900 text-lg ">نام - <span className="text-gray-500 ">{title} </span></h4>
+                            <h4 className="text-gray-900 text-lg py-5">قیمت - <span className="text-gray-500">{sale_price}  </span></h4>
+                            <h4 className="text-gray-900 text-lg">وزن - <span className="text-gray-500">1 کیلو گرم</span></h4>
+                        </div>
+                        <div className="pt-8 mr-40">
+                            <h4 className="text-gray-900 text-lg ">امتیاز - <span className="text-gray-500 ">4.2  </span></h4>
+                            <h4 className="text-gray-900 text-lg py-5">ارسال - <span className="text-gray-500">رایگان  </span></h4>
+                            <h4 className="text-gray-900 text-lg">تحویل - <span className="text-gray-500">5 روز کاری </span></h4>
+                        </div>
+ */}

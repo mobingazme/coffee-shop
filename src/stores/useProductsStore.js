@@ -20,7 +20,7 @@ const useProductsStore = create(
               products: response.data.result.products,
               can_filter: response.data.result.can_filter // مقداردهی به can_filter از داده‌های دریافتی
             }));
-            console.log( "s" ,response.data.result)
+           // console.log( "s" ,response.data.result)
           } catch (error) {
             set({ isError: true, isLoading: false });
             console.error('Error fetching products:', error);

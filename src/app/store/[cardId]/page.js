@@ -18,24 +18,30 @@ const params = data.map((card)=>({cardId:String(card.id)}));
 
 function pageDetails(props) { //{params}
   const { products, fetchProducts } = useProductStore();
- // console.log(props)
- // console.log(products)
+  // console.log(props)
+  // console.log(products)
 
   useEffect(() => {
-    fetchProducts()
-  }, [fetchProducts])
+    const id = parseInt(props.params.cardId, 10);
+    fetchProducts(id); // استفاده از id برای فراخوانی fetchProducts با آن
+  }, [fetchProducts, props.params.cardId]);
+
+
+
+
+
   {/* 
 const cards = await fetch("/");
 const data = await card.json();
 */}
 
-const id = parseInt(props.params.cardId, 10);
- const product = products.find(item => item.id === id);
+  //const id = parseInt(props.params.cardId, 10);
+  //const product = products.find(item => item.id === id);
 
- // console.log(id)
- // console.log(product)
+  // console.log(id)
+  // console.log(product)
 
-  return <CardDetails data={product} />
+  return <CardDetails data={products}  />
 }
 
 export default pageDetails

@@ -25,7 +25,7 @@ const SliderProductDetails = ({Data}) => {
         effect={'cards'}
         grabCursor={true}
         modules={[EffectCards]}
-        className="mySwiper"
+        className="mySwiper "
       >
         <SwiperSlide > <img width={300} height={100} alt='' className="h-[420px] w-full" src={cover} /></SwiperSlide>
         <SwiperSlide> <img width={300} height={100} alt='' className="h-[420px] w-full"src={cover} /></SwiperSlide>

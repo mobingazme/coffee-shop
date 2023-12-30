@@ -7,17 +7,14 @@ const useProductStore = create(
     devtools(
       (set) => ({
         products: [],
-        // اضافه کردن can_filter
         isLoading: false,
         isError: false,
-        fetchProducts: async () => {
+        fetchProducts: async (id) => { // اضافه کردن یک پارامتر id به fetchProducts
           set((state) => ({ ...state, isLoading: true }));
-
           try {
-            const response = await CustomAxios.get('products');
-            set((state) => ({ ...state, products: response.data.result.products }));
-
-            console.log(response.data.result);
+            const response = await CustomAxios.get(`products/${id}`); // اضافه کردن id به URL
+            set((state) => ({ ...state, products: response.data.result }));
+           // console.log(response.data.result);
           } catch (error) {
             set({ isError: true, isLoading: false });
             console.error('Error fetching products:', error);
