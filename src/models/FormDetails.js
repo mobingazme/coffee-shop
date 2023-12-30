@@ -1,38 +1,58 @@
 "use client"
-import Image from "next/image";
-import { Icon } from '@iconify/react'
-import Link from "next/link";
-//import Counter from "@/elements/Counter";
+import React, { useState } from 'react';
 
+function FormDetails({ cartItems }) {
+  // استیت محلی برای ذخیره تخفیف هر محصول و تعداد آن
+  const [discounts, setDiscounts] = useState({});
+  const [quantities, setQuantities] = useState({});
+console.log(cartItems)
+  // تابع برای اعمال تخفیفات و تغییر قیمت
+  const applyDiscount = (item) => {
+    // دریافت تخفیف
+    const itemDiscount = discounts[item.id] || 0;
+    // دریافت تعداد محصول
+    const itemQuantity = quantities[item.id] || 1;
+    // محاسبه قیمت با توجه به تعداد و تخفیف
+    const totalPrice = item.sale_price * itemQuantity - itemDiscount;
 
+    return totalPrice;
+  };
 
+  // تابع برای افزایش تعداد محصول
+  const increaseQuantity = (itemId) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [itemId]: (prevQuantities[itemId] || 0) + 1,
+    }));
+  };
 
-function FormDetails({ data }) {
+  // تابع برای کاهش تعداد محصول
+  const decreaseQuantity = (itemId) => {
+    if (quantities[itemId] > 1) {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [itemId]: prevQuantities[itemId] - 1,
+      }));
+    }
+  };
 
-
-    return (
-
-        <>
-            <Link href={`/card/${item.id}`}>
-                {data.map((item) => (
-                    <div key={item.id} className='flex justify-between pt-20 items-center'>
-                        <div className='flex items-center'>
-                            <Image className="" width={100} height={100} alt="محصول" src={item.img} />
-                            <span className="text-gray-900 text-xl pr-5">{item.title}</span>
-                        </div>
-                        {/*<Counter />*/}
-                        <div >
-                            <span className="text-gray-900 text-xl ml-10">{item.sprice}</span>
-                        </div>
-                        <div >
-                            <span className="text-gray-900 text-xl ">{item.sprice}</span>
-                        </div>
-                        <button className=' h-fit  w-auto p-3 rounded-full text-white bg-yellow hover:text-yellow hover:bg-white hover:border-yellow border transition-all delay-75 '>حذف  </button>
-                    </div>
-
-                ))}
-            </Link>
-        </>
-    )
+  return (
+    <div>
+      {cartItems &&cartItems.map((item, index) => (
+        <div key={index}>
+          <h4>نام محصول: {item.title}</h4>
+          <p>قیمت: {item.sale_price}</p>
+          {/* اعمال تخفیفات و تغییر قیمت بر اساس شرایط مورد نظر */}
+          <p>قیمت با تخفیف: {applyDiscount(item)}</p>
+          {/* دکمه‌ها برای افزایش و کاهش تعداد محصول */}
+          <button onClick={() => increaseQuantity(item.id)}>افزایش تعداد</button>
+          <span>تعداد: {quantities[item.id] || 1}</span>
+          <button onClick={() => decreaseQuantity(item.id)}>کاهش تعداد</button>
+          {/* دیگر اطلاعات مورد نیاز */}
+        </div>
+      ))}
+    </div>
+  );
 }
+
 export default FormDetails;
