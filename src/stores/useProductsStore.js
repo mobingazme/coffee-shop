@@ -7,7 +7,8 @@ const useProductsStore = create(
     devtools(
       (set) => ({
         products: [],
-        can_filter: {}, // اضافه کردن can_filter
+        can_filter: {},
+        paginate: {}, // اضافه کردن paginate به استور
         isLoading: false,
         isError: false,
         fetchProducts: async () => {
@@ -18,9 +19,10 @@ const useProductsStore = create(
             set((state) => ({
               ...state,
               products: response.data.result.products,
-              can_filter: response.data.result.can_filter // مقداردهی به can_filter از داده‌های دریافتی
+              can_filter: response.data.result.can_filter,
+              paginate: response.data.paginate, // مقداردهی به paginate از داده‌های دریافتی
             }));
-           // console.log( "s" ,response.data.result)
+            console.log( "s" ,response.data.paginate)
           } catch (error) {
             set({ isError: true, isLoading: false });
             console.error('Error fetching products:', error);

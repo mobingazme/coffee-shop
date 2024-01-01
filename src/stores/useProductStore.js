@@ -14,7 +14,7 @@ const useProductStore = create(
           try {
             const response = await CustomAxios.get(`products/${id}`); // اضافه کردن id به URL
             set((state) => ({ ...state, products: response.data.result }));
-           // console.log(response.data.result);
+            console.log(response.data.result);
           } catch (error) {
             set({ isError: true, isLoading: false });
             console.error('Error fetching products:', error);
