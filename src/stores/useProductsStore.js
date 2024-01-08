@@ -8,21 +8,23 @@ const useProductsStore = create(
       (set) => ({
         products: [],
         can_filter: {},
-        paginate: {}, // اضافه کردن paginate به استور
+        paginate: {}, 
         isLoading: false,
         isError: false,
-        fetchProducts: async () => {
+        fetchProducts: async (page = 1, perPage = 5) => {
           set((state) => ({ ...state, isLoading: true }));
 
           try {
-            const response = await CustomAxios.get('products');
+            const response = await CustomAxios.get('products', {
+              params: { page, per_page: perPage },
+            });
             set((state) => ({
               ...state,
               products: response.data.result.products,
               can_filter: response.data.result.can_filter,
-              paginate: response.data.paginate, // مقداردهی به paginate از داده‌های دریافتی
+              paginate: response.data.paginate,
+              isLoading: false,
             }));
-            console.log( "s" ,response.data.paginate)
           } catch (error) {
             set({ isError: true, isLoading: false });
             console.error('Error fetching products:', error);

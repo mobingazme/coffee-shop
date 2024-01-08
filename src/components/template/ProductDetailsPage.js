@@ -1,17 +1,14 @@
 "use client"
 //import Counter from '@/models/Counter'
 
-import React, { useState } from "react"
+import React from "react"
 import FormDetails from '@/models/FormDetails'
 
 function ProductDetailsPage({ data }) {
-  // استیت محلی برای نگهداری محصولات در سبد خرید
-  const [cartItems, setCartItems] = useState([]);
+
+
 console.log(data)
-  // تابع برای افزودن محصول به سبد خرید
-  const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
-  };
+  
 
   return (
     <div className='bg-white w-screen h-full'>
@@ -29,7 +26,7 @@ console.log(data)
         </div>
 
         {/* نمایش محصولات در سبد خرید */}
-        <FormDetails cartItems={cartItems} />
+        <FormDetails cartItems={data} />
 
         <button className=' h-fit mt-10 w-auto p-3 rounded-full text-white bg-yellow hover:text-yellow hover:bg-white hover:border-yellow border transition-all delay-75 '>رفتن به پرداخت</button>
       </div>
